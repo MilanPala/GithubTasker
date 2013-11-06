@@ -1,0 +1,17 @@
+{
+	"name": "Github Tasker",
+	"version": "1.0",
+	"description": "Zobrazí přehledně všechny úkoly z issue na Githubu",
+	"manifest_version": 2,
+	"content_scripts": [
+		{
+			"matches": ["https://github.com/*/*/*"],
+			"js": ["jquery-1.8.0.min.js", "script.js"]
+		}
+	],
+	"icons": {
+	  	"16": "icon16.png",
+		"48": "icon48.png",
+		"128": "icon128.png"
+	}
+}

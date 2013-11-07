@@ -18,21 +18,27 @@ $(function() {
 	$tasker.css('position', 'fixed');
 	$tasker.css('right', '10px');
 	$tasker.css('bottom', '0px');
-	$tasker.css('height', '330px');
 	$tasker.css('width', '300px');
 	$tasker.css('background', '#fff');
+	$tasker.css('border', '1px solid #CACACA');
 	
 	$content = $('<div id="github-tasker-content"></div>');
 	$content.css('overflow-y', 'auto');
-	$content.css('height', '300px');
 	$tasker.append($content);
-	
+	var checked = 0;
+	var total = 0;
 	$('.discussion-bubble').each(function() {
 		$(this).find('.task-list').each(function(){
-			//alert($(this).find('.task-list-item-checkbox:checked').length);
+			checked += $(this).find('.task-list-item-checkbox:checked').length;
+			total += $(this).find('.task-list-item-checkbox').length;
 			$content.append($(this).clone());
 		});
 	});
+	$tasker.find('h2').append(' '+checked+'/'+total);
+	if(total) {
+		$content.css('height', '300px');
+		//$tasker.css('height', '330px');
+	}
 	
 	$('body').append($tasker);
 });

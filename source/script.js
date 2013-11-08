@@ -1,30 +1,43 @@
 $(function() {
-	$tasker = $('<div id="github-tasker" class="markdown-body"><h2 style="height: 30px; line-height: 30px; margin-bottom: 0; font-size: 21px; padding: 0 3px; position: relative; cursor: pointer;">Github Tasker <span id="github-tasker-progress"></span> <input type="checkbox" id="github-tasker-notcheckedonly" style="position: absolute; right: 3px; width: 20px; height: 20px; top: 5px;" /></h2></div>');
+	$tasker = $('<div id="github-tasker" class="markdown-body"><div style="border-style: solid; border-color: #CACACA; border-width: 1px 1px 0 1px;"><h2 style="height: 30px; line-height: 30px; margin: 0; font-size: 21px; padding: 0 5px; position: relative; cursor: pointer; background-color: #e1e1e1; background-image: -webkit-linear-gradient(#f8f8f8, #e1e1e1); border-bottom: 1px solid #ccc;">Github Tasker <span id="github-tasker-progress"></span> <input type="checkbox" id="github-tasker-notcheckedonly" style="position: absolute; right: 3px; width: 20px; height: 20px; top: 5px;" /></h2><div id="github-tasker-content"></div></div></div>');
 	$tasker.css('position', 'fixed');
 	$tasker.css('right', '10px');
 	$tasker.css('bottom', '0px');
 	$tasker.css('width', '300px');
 	$tasker.css('background', '#fff');
-	$tasker.css('border-top', '1px solid #CACACA');
-	$tasker.css('border-left', '1px solid #CACACA');
-	$tasker.css('border-right', '1px solid #CACACA');
+	$tasker.css('border-top', '3px solid #EEE');
+	$tasker.css('border-left', '3px solid #EEE');
+	$tasker.css('border-right', '3px solid #EEE');
 
 	var $checkbox = $tasker.find('#github-tasker-notcheckedonly');
-	$checkbox.val($.cookie('github-tasker-notcheckedonly'));
+	var notcheckedonly = $.cookie('github-tasker-notcheckedonly');
+	if(notcheckedonly === undefined || notcheckedonly === 'true') notcheckedonly = true;
+	else notcheckedonly = false;
+	$checkbox.attr('checked', notcheckedonly);
+	
 	$(document).on('click', '#github-tasker-notcheckedonly', function(e) {
-		e.stopPropagation();
 		var $checkboxes = $tasker.find('.task-list li input[type="checkbox"]:checked').closest('li');
-		$checkboxes.toggle();
-		$.cookie('github-tasker-notcheckedonly', $(this).val());
+		var checked = $(this).is(':checked');
+		$checkboxes.toggle(checked);
+		$.cookie('github-tasker-notcheckedonly', checked);
+		e.stopPropagation();
 	});
+
+	$content = $tasker.find('#github-tasker-content');
+	$content.css('overflow-y', 'auto');	
+	
+	var show = $.cookie('github-tasker-show');
+	if(show === undefined || show === 'false') show = false;
+	else show = true;
+	$content.toggle(show);
 	
 	$(document).on('click', '#github-tasker h2', function(e) {
-		$content.toggle();
+		var show = $.cookie('github-tasker-show')
+		if(show === undefined || show === 'false') show = false;
+		else show = true;
+		$content.toggle(!show);
+		$.cookie('github-tasker-show', !show);
 	});
-	
-	$content = $('<div id="github-tasker-content"></div>');
-	$content.css('overflow-y', 'auto');
-	$tasker.append($content);
 	
 	var checked = 0;
 	var total = 0;
@@ -35,21 +48,28 @@ $(function() {
 			total += $(this).find('.task-list-item-checkbox').length;
 			var $header = $comment.find('comment-header').clone();
 			$content.append($header);
-			$li = $(this).clone();
-			$li.find('.task-list-item-checkbox').css('margin-top', '2px');
-			$li.css('font-size', '13px');
-			$li.css('line-height', '20px');
-			$content.append($li);
+			$ul = $(this).clone();
+			$ul.find('.task-list-item-checkbox').css('margin-top', '2px');
+			$ul.css('font-size', '13px');
+			$ul.css('line-height', '20px');
+			$ul.css('cursor', 'help');
+			$ul.find(':checkbox').prop('disabled', true).click(function() {return false;});
+			$ul.click(function() {
+				$('html, body').animate({
+					scrollTop: $comment.offset().top
+				}, 500);
+			});
+			$content.append($ul);
 		});
 	});
 	$tasker.find('#github-tasker-progress').append(' '+checked+'/'+total);
 	if(total) {
 		$content.css('height', '300px');
 	}
-	if($checkbox.val() === 'on') {
-		var $checkboxes = $tasker.find('.task-list li input[type="checkbox"]:checked').closest('li');
-		$checkboxes.hide();
-	}
+
+	var $checkboxes = $tasker.find('.task-list li input[type="checkbox"]:checked').closest('li');
+	$checkboxes.toggle($checkbox.is(':checked'));
+	
 	$('body').append($tasker);
 	
 });

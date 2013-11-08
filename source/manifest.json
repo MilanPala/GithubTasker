@@ -5,8 +5,8 @@
 	"manifest_version": 2,
 	"content_scripts": [
 		{
-			"matches": ["https://github.com/*/*/*/*"],
-			"js": ["jquery-1.8.0.min.js", "jquery.cookie.js", "script.js"]
+			"matches": ["https://github.com/*/*/issues/*"],
+			"js": ["jquery-2.0.3.min.js", "jquery.cookie.js", "script.js"]
 		}
 	],
 	"icons": {

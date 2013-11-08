@@ -19,7 +19,7 @@ $(function() {
 		var $checkboxes = $tasker.find('.task-list li input[type="checkbox"]:checked').closest('li');
 		var checked = $(this).is(':checked');
 		$checkboxes.toggle(checked);
-		$.cookie('github-tasker-notcheckedonly', checked);
+		$.cookie('github-tasker-notcheckedonly', checked, { expires: 100 });
 		e.stopPropagation();
 	});
 
@@ -36,7 +36,7 @@ $(function() {
 		if(show === undefined || show === 'false') show = false;
 		else show = true;
 		$content.toggle(!show);
-		$.cookie('github-tasker-show', !show);
+		$.cookie('github-tasker-show', !show, { expires: 100 });
 	});
 	
 	var checked = 0;

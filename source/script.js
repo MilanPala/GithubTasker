@@ -10,6 +10,11 @@ function loadTasks($tasker, $checkbox) {
 			var $header = $comment.find('comment-header').clone();
 			$content.append($header);
 			$ul = $(this).clone();
+			$ul.mouseenter(function() {
+				$(this).css('background-color', '#eee');
+			}).mouseleave(function(){
+				$(this).css('background-color', 'transparent');
+			});
 			$ul.find('.task-list-item-checkbox').css('margin-top', '2px');
 			$ul.css('font-size', '13px');
 			$ul.css('line-height', '20px');
@@ -35,7 +40,6 @@ function loadTasks($tasker, $checkbox) {
 
 	var $checkboxes = $tasker.find('.task-list li input[type="checkbox"]:checked').closest('li');
 	$checkboxes.toggle($checkbox.is(':checked'));
-	setTimeout(loadTasks, 10000, $tasker, $checkbox);
 }
 
 $(function() {
@@ -43,7 +47,8 @@ $(function() {
 	$tasker.css('position', 'fixed');
 	$tasker.css('right', '10px');
 	$tasker.css('bottom', '0px');
-	$tasker.css('width', '300px');
+	$tasker.css('min-width', '300px');
+	$tasker.css('width', '23%');
 	$tasker.css('background', '#fff');
 	$tasker.css('border-top', '3px solid #EEE');
 	$tasker.css('border-left', '3px solid #EEE');
@@ -80,6 +85,7 @@ $(function() {
 	});
 	
 	loadTasks($tasker, $checkbox);
+	setInterval(loadTasks, 10000, $tasker, $checkbox);
 	
 	$('body').append($tasker);
 });

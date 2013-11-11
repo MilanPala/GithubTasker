@@ -5,7 +5,7 @@
 	"manifest_version": 2,
 	"content_scripts": [
 		{
-			"matches": ["https://github.com/*/*/issues/*"],
+			"matches": ["https://github.com/*/*/issues/*", "https://github.com/*/*/pull/*"],
 			"js": ["jquery-2.0.3.min.js", "jquery.cookie.js", "script.js"]
 		}
 	],

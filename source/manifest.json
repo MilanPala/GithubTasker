@@ -1,8 +1,9 @@
 {
 	"name": "Github Tasker",
 	"version": "1.0.0",
-	"description": "Zobrazí přehledně všechny úkoly z issue na Githubu",
+	"description": "Show all task from comments in fixed Taskbar window on bottom of page",
 	"manifest_version": 2,
+	"homepage_url": "https://github.com/MilanPala/GithubTasker",
 	"content_scripts": [
 		{
 			"matches": ["https://github.com/*/*/issues/*", "https://github.com/*/*/pull/*"],
@@ -10,7 +11,7 @@
 		}
 	],
 	"icons": {
-	  	"16": "icon16.png",
+		"16": "icon16.png",
 		"48": "icon48.png",
 		"128": "icon128.png"
 	}

@@ -30,10 +30,10 @@ function loadTasks($tasker, $checkbox) {
 	});
 	$tasker.find('#github-tasker-progress').empty();
 	$tasker.find('#github-tasker-progress').append(' '+checked+'/'+total);
-	patt=/([0-9]+\/[0-9]+ )(.+)/;
+	patt=/(#[0-9]+: [0-9]+\/[0-9]+ )(.+)/;
 	var title = document.title;
 	title = title.replace(patt, '$2');
-	document.title = checked+'/'+total+' '+title;
+	document.title = $('.issue-head .number strong').text()+': '+checked+'/'+total+' '+title;
 	if(total) {
 		$content.css('height', '300px');
 	}

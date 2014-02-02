@@ -1,6 +1,6 @@
 {
 	"name": "Github Tasker",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "Show all task from comments in fixed Taskbar window on bottom of page",
 	"manifest_version": 2,
 	"homepage_url": "https://github.com/MilanPala/GithubTasker",

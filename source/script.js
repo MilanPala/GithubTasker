@@ -2,7 +2,7 @@ function loadTasks($tasker, $checkbox) {
 	var checked = 0;
 	var total = 0;
 	$content.empty();
-	$('.discussion-bubble').each(function() {
+	$('#discussion_bucket').each(function() {
 		var $comment = $(this);
 		$(this).find('.task-list').each(function(){
 			checked += $(this).find('.task-list-item-checkbox:checked').length;
@@ -33,7 +33,7 @@ function loadTasks($tasker, $checkbox) {
 	patt=/((?:#[0-9]+: )?[0-9]+\/[0-9]+ )(.+)/;
 	var title = document.title;
 	title = title.replace(patt, '$2');
-	var issueNumber = $('.issue-head .number strong').text();
+	var issueNumber = $('.gh-header-number').text();
 	document.title = (issueNumber ? issueNumber+': ' : '') +checked+'/'+total+' '+title;
 	if(total) {
 		$content.css('height', '300px');

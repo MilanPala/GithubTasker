@@ -2,9 +2,9 @@ function loadTasks($tasker, $checkbox) {
 	var checked = 0;
 	var total = 0;
 	$content.empty();
-	$('#discussion_bucket').each(function() {
+	$('.timeline-comment-wrapper').each(function() {
 		var $comment = $(this);
-		$(this).find('.task-list').each(function(){
+		$(this).find('.task-list-item').closest('.task-list').each(function(){
 			checked += $(this).find('.task-list-item-checkbox:checked').length;
 			total += $(this).find('.task-list-item-checkbox').length;
 			var $header = $comment.find('comment-header').clone();
